@@ -1,8 +1,8 @@
 <template>
-  <div class="header">
-    <h1>Brightness & Contrast Developer Test</h1>
-    <div>01 Jun, 2018 – 31 Dec, 2019</div>
-  </div>
+  <app-header
+    title="Brightness & Contrast Developer Test"
+    sub-title="01 Jun, 2018 – 31 Dec, 2019"
+  />
   <div class="hero">
     <img src="@/assets/hero.png" alt="Hero" />
     <div class="avatar">
@@ -55,7 +55,12 @@
 </template>
 
 <script>
+import AppHeader from "@/components/AppHeader.vue";
+
 export default {
+  components: {
+    AppHeader
+  },
   name: "Home",
   data() {
     return {
@@ -78,10 +83,7 @@ export default {
 img {
   width: 100%;
 }
-h1 {
-  margin: 0;
-  font-size: 2rem;
-}
+
 .header {
   padding: 1.5rem;
   background-color: #7344c0;

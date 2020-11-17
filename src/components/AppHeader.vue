@@ -29,7 +29,8 @@ h1 {
 
 .app-header {
   padding: 1.5rem;
-  background-color: #7344c0;
+  // background-color: #7344c0;
+  background-color: $purple;
   color: #fff;
   font-size: 1.5rem;
 }

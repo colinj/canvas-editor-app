@@ -3,12 +3,10 @@
     title="Brightness & Contrast Developer Test"
     sub-title="01 Jun, 2018 – 31 Dec, 2019"
   />
-  <div class="hero">
-    <img src="@/assets/hero.png" alt="Hero" />
-    <div class="avatar">
-      <img src="@/assets/profile.png" alt="profile pic" />
-    </div>
-  </div>
+  <hero-section
+    :hero-image="require('@/assets/hero.png')"
+    :avatar-image="require('@/assets/profile.png')"
+  />
   <div class="controls">
     <div class="input-range">
       <label for="brightness">Brightness</label>
@@ -55,11 +53,13 @@
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader.vue";
+import AppHeader from "@/components/AppHeader";
+import HeroSection from "@/components/HeroSection";
 
 export default {
   components: {
-    AppHeader
+    AppHeader,
+    HeroSection
   },
   name: "Home",
   data() {
@@ -79,33 +79,4 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped>
-img {
-  width: 100%;
-}
-
-.header {
-  padding: 1.5rem;
-  background-color: #7344c0;
-  color: #fff;
-  font-size: 1.5rem;
-}
-
-.hero {
-  position: relative;
-}
-
-$avatar-size: 8rem;
-
-.avatar {
-  position: absolute;
-  bottom: -2rem;
-  left: calc(50% - #{$avatar-size / 2});
-  height: $avatar-size;
-  width: $avatar-size;
-  background-color: lightgreen;
-  border: 4px solid #fff;
-  border-radius: 50%;
-  overflow: hidden;
-}
-</style>
+<style lang="scss" scoped></style>

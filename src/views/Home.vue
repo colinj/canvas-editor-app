@@ -8,30 +8,16 @@
     :avatar-image="require('@/assets/profile.png')"
   />
   <div class="controls">
-    <div class="input-range">
-      <label for="brightness">Brightness</label>
-      <input
-        type="range"
-        name="brightness"
-        id="brightness"
-        min="-100"
-        max="100"
-        step="1"
-      />
-      <div>Slide to adjust image brightness!☀️</div>
-    </div>
-    <div class="input-range">
-      <label for="contrast">Contrast</label>
-      <input
-        type="range"
-        name="contrast"
-        id="contrast"
-        min="-100"
-        max="100"
-        step="1"
-      />
-      <div>Slide to adjust image contrast! 🌓</div>
-    </div>
+    <range-slider
+      id="brightness"
+      label="Brightness"
+      text="Slide to adjust image brightness! ☀️"
+    />
+    <range-slider
+      id="contrast"
+      label="Contrast"
+      text="Slide to adjust image contrast! 🌓"
+    />
   </div>
   <div class="main">
     <div class="image-container">
@@ -55,11 +41,13 @@
 <script>
 import AppHeader from "@/components/AppHeader";
 import HeroSection from "@/components/HeroSection";
+import RangeSlider from "@/components/RangeSlider";
 
 export default {
   components: {
     AppHeader,
-    HeroSection
+    HeroSection,
+    RangeSlider
   },
   name: "Home",
   data() {
@@ -79,4 +67,10 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+.controls {
+  * + * {
+    margin-top: 1.5rem;
+  }
+}
+</style>

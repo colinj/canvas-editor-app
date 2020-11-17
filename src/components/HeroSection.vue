@@ -26,7 +26,7 @@ export default {
 <style lang="scss" scoped>
 .hero-section {
   position: relative;
-  margin-bottom: 3rem
+  margin-bottom: 3rem;
 }
 
 $avatar-size: 8rem;

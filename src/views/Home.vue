@@ -1,6 +1,6 @@
 <template>
-  <div>
-    <div>Brightness & Contrast Developer Test</div>
+  <div class="header">
+    <h1>Brightness & Contrast Developer Test</h1>
     <div>01 Jun, 2018 – 31 Dec, 2019</div>
   </div>
   <div class="hero">
@@ -77,6 +77,16 @@ export default {
 <style lang="scss" scoped>
 img {
   width: 100%;
+}
+h1 {
+  margin: 0;
+  font-size: 2rem;
+}
+.header {
+  padding: 1.5rem;
+  background-color: #7344c0;
+  color: #fff;
+  font-size: 1.5rem;
 }
 
 .hero {

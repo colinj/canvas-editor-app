@@ -13,12 +13,14 @@
       id="brightness"
       label="Brightness"
       text="Slide to adjust image brightness! ☀️"
+      color="blue"
     />
     <range-slider
       v-model="contrast"
       id="contrast"
       label="Contrast"
       text="Slide to adjust image contrast! 🌓"
+      color="green"
     />
   </div>
   <div class="main">
@@ -54,7 +56,7 @@ export default {
   name: "Home",
   data() {
     return {
-      brightness: 50,
+      brightness: 0,
       contrast: 0,
       selectedFile: null,
       imageSource: null
@@ -66,10 +68,6 @@ export default {
     },
     uploadFile() {
       this.imageSource = URL.createObjectURL(this.selectedFile);
-    },
-    updateBrightness(val) {
-      console.log("brightness", val);
-      // this.brightness = val;
     }
   }
 };

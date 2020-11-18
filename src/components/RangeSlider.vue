@@ -8,6 +8,8 @@
       :min="min"
       :max="max"
       :step="step"
+      :value="modelValue"
+      @input="$emit('update:modelValue', $event.target.valueAsNumber)"
     />
     <span>{{ text }}</span>
   </div>
@@ -17,6 +19,9 @@
 export default {
   name: "RangeSlider",
   props: {
+    modelValue: {
+      type: Number
+    },
     id: {
       type: String,
       required: true

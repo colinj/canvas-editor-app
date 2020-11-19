@@ -79,7 +79,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$thumb-size: 2.25em;
+$thumb-size: 2em;
 $track-h: $thumb-size / 3;
 $radius-size: $track-h / 2;
 
@@ -106,6 +106,10 @@ $radius-size: $track-h / 2;
   input[type="range"] {
     @include slider-thumb {
       background-color: $color;
+
+      &:active {
+        background-color: darken($color, 10%);
+      }
     }
   }
 
@@ -119,6 +123,7 @@ $radius-size: $track-h / 2;
 
 .range-slider {
   @include slider-color($purple);
+  position: relative;
   padding: 1.5rem 3rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
   border-radius: 5px;
@@ -128,7 +133,13 @@ $radius-size: $track-h / 2;
   }
 
   label {
+    position: absolute;
     display: block;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    padding-top: 1rem;
     font-size: 2rem;
   }
 
@@ -136,7 +147,7 @@ $radius-size: $track-h / 2;
     position: relative;
     display: flex;
     align-items: center;
-    margin-top: 1.5rem;
+    margin-top: 4rem;
     height: $track-h;
     border-radius: $radius-size;
   }
@@ -168,6 +179,11 @@ $radius-size: $track-h / 2;
       border-radius: 50%;
       box-shadow: 0 0 0 5px #fff;
       cursor: ew-resize;
+
+      &:active {
+        height: $thumb-size * 1.1;
+        width: $thumb-size * 1.1;
+      }
     }
 
     &:focus {

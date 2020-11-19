@@ -1,28 +1,45 @@
-.btn {
-  @extend %control-style;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
-  margin-left: 1.5rem;
-  border-radius: $border-radius;
-  background-color: $grey-1;
-  color: $blue;
+        .app-btn {
+  @at-root button#{&} {
+    appearance: none;
+    background: none;
+    border: none;
+    outline: none;
+  }
 
-  &:hover {
+  > span {
+    @extend %control-style;
+    position: relative;
+    display: flex;
+    align-items: center;
+    padding: 1rem 2rem;
+    border-radius: $border-radius;
+    background-color: $grey-1;
+    color: $blue;
+
+    &:focus {
+      outline: none;
+    }
+
+    img {
+      width: 1em;
+      height: 1em;
+      margin-right: 0.5em;
+    }
+  }
+
+  &:hover > span {
+    background-color: darken($grey-1, 5%);
+  }
+
+  &:active > span {
     background-color: darken($grey-1, 10%);
   }
 
   &:focus {
     outline: none;
-  }
 
-  &:active {
-    background-color: darken($grey-1, 15%);
-  }
-
-  img {
-    width: 1em;
-    height: 1em;
-    margin-right: 0.5em;
+    > span {
+      box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.2);
+    }
   }
 }

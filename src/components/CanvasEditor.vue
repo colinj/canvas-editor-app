@@ -13,10 +13,10 @@
       <div class="control-footer">
         <span>Name</span>
         <span :title="fileName">{{ fileName }}</span>
-        <button class="btn" @click="openFilePicker">
+        <app-button @click="openFilePicker">
           <img src="@/assets/triangle.svg" alt="" srcset="" />
           Upload
-        </button>
+        </app-button>
       </div>
     </div>
     <input
@@ -29,10 +29,14 @@
 </template>
 
 <script>
+import AppButton from "@/components/AppButton";
+
 const pipe = (...fns) => initVal => fns.reduce((val, fn) => fn(val), initVal);
 
 export default {
-  components: {},
+  components: {
+    AppButton
+  },
   name: "CanvasEditor",
   props: {
     settings: {
@@ -157,7 +161,7 @@ export default {
   }
 }
 
-.btn {
+.app-btn {
   margin-left: 1.5rem;
 }
 </style>

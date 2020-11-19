@@ -169,6 +169,18 @@ export default {
   background-color: $grey-1;
   color: $blue;
 
+  &:hover {
+    background-color: darken($grey-1, 10%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    background-color: darken($grey-1, 15%);
+  }
+
   img {
     width: 1em;
     height: 1em;

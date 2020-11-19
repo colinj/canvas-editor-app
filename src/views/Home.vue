@@ -1,7 +1,7 @@
 <template>
   <app-header
     title="Brightness & Contrast Developer Test"
-    sub-title="01 Jun, 2018 – 31 Dec, 2019"
+    sub-title="01 Jun, 2018 – 31 Dec, 2020"
   />
   <hero-section
     :hero-image="require('@/assets/hero.png')"

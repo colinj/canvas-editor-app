@@ -10,18 +10,17 @@
       <canvas class="canvas" ref="canvas"></canvas>
 
       <div class="control-footer">
-        <div class="file-loader">
-          <label for="file-loader">Name</label>
-          <input
-            type="file"
-            name="file-loader"
-            id="file-loader"
-            @change="selectFile"
-          />
+        <div class="filename">
+          <span>Name</span>
+          <span>{{ fileName }}</span>
         </div>
-        <button @click="uploadFile">Upload</button>
+        <button class="btn" @click="uploadFile">
+          <img src="@/assets/triangle.svg" alt="" srcset="" />
+          Upload
+        </button>
       </div>
     </div>
+    <input class="hidden" type="file" ref="fileSelector" @change="selectFile" />
   </div>
 </template>
 
@@ -39,6 +38,7 @@ export default {
   },
   data() {
     return {
+      fileName: null,
       context: null,
       imageData: {}
     };
@@ -46,6 +46,7 @@ export default {
   methods: {
     selectFile(evt) {
       console.log(evt.target.files[0]);
+      this.fileName = evt.target.files[0].name;
       this.$refs.imgSource.src = URL.createObjectURL(evt.target.files[0]);
     },
     copyToCanvas() {
@@ -91,6 +92,9 @@ export default {
       )(this.createImageData());
 
       this.context.putImageData(imgData, 0, 0);
+    },
+    uploadFile() {
+      this.$refs.fileSelector.click();
     }
   },
   watch: {
@@ -107,4 +111,57 @@ export default {
 };
 </script>
 
-<style lang="scss" scoped></style>
+<style lang="scss" scoped>
+%control-style {
+  padding: 1rem 2rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  text-transform: uppercase;
+  border: 1px solid $grey;
+}
+
+.hidden {
+  display: none;
+}
+.control-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+}
+
+.filename {
+  span {
+    @extend %control-style;
+
+    &:first-of-type {
+      background-color: $lightgrey;
+      border-top-left-radius: 5px;
+      border-bottom-left-radius: 5px;
+      color: $darkgrey;
+    }
+
+    &:last-of-type {
+      border-left-width: 0;
+      border-top-right-radius: 5px;
+      border-bottom-right-radius: 5px;
+      color: $green;
+    }
+  }
+}
+
+.btn {
+  @extend %control-style;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  background-color: $lightgrey;
+  color: $blue;
+
+  img {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+  }
+}
+</style>

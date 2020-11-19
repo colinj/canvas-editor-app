@@ -24,7 +24,7 @@
       color="green"
       :disabled="disabledControls"
     />
-    <canvas-editor :settings="settings" @load="imageLoaded" />
+    <canvas-editor :settings="settings" @loaded="imageLoaded" />
   </div>
 </template>
 

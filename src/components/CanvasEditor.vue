@@ -2,23 +2,29 @@
   <div class="main">
     <div class="image-container">
       <img
-        alt="target image"
+        class="hide-image"
         ref="imgSource"
-        style="opacity:0;position:absolute;z-index:-100"
-        @load="copyToCanvas()"
+        :alt="fileName"
+        tabindex="-1"
+        @load="setupCanvas"
       />
-      <canvas class="canvas" ref="canvas"></canvas>
+      <canvas class="canvas" ref="canvas" :title="fileName"></canvas>
 
       <div class="control-footer">
         <span>Name</span>
-        <span>{{ fileName }}</span>
-        <button class="btn" @click="uploadFile">
+        <span :title="fileName">{{ fileName }}</span>
+        <button class="btn" @click="openFilePicker">
           <img src="@/assets/triangle.svg" alt="" srcset="" />
           Upload
         </button>
       </div>
     </div>
-    <input class="hidden" type="file" ref="fileSelector" @change="selectFile" />
+    <input
+      type="file"
+      class="hidden"
+      ref="fileSelector"
+      @change="loadImageFile"
+    />
   </div>
 </template>
 
@@ -42,27 +48,30 @@ export default {
     };
   },
   methods: {
-    selectFile(evt) {
+    openFilePicker() {
+      this.$refs.fileSelector.click();
+    },
+    loadImageFile(evt) {
       console.log(evt.target.files[0]);
       this.fileName = evt.target.files[0].name;
       this.$refs.imgSource.src = URL.createObjectURL(evt.target.files[0]);
     },
-    copyToCanvas() {
+    setupCanvas() {
       const img = this.$refs.imgSource;
       URL.revokeObjectURL(img.src);
       this.$refs.canvas.width = img.width;
       this.$refs.canvas.height = img.height;
       this.context.drawImage(img, 0, 0, img.width, img.height);
       this.imageData = this.context.getImageData(0, 0, img.width, img.height);
-      this.$emit("load");
+      this.$emit("loaded");
     },
-    createImageData() {
+    getImageData() {
       const img = this.$refs.imgSource;
       const imgData = this.context.createImageData(img.width, img.height);
       imgData.data.set(this.imageData.data);
       return imgData;
     },
-    applyBrightness(imgData, brightness) {
+    filterBrightness(imgData, brightness) {
       const data = imgData.data;
       const factor = brightness * 1.28; // 2.55;
       for (let i = 0; i < data.length; i += 4) {
@@ -72,7 +81,7 @@ export default {
       }
       return imgData;
     },
-    applyContrast(imgData, contrast) {
+    filterContrast(imgData, contrast) {
       const data = imgData.data;
       const factor =
         (259.0 * (contrast + 255.0)) / (255.0 * (259.0 - contrast));
@@ -84,23 +93,20 @@ export default {
       }
       return imgData;
     },
-    modifyImg() {
+    applyFilters({ brightness, contrast }) {
       const imgData = pipe(
-        x => this.applyBrightness(x, this.settings.brightness),
-        x => this.applyContrast(x, this.settings.contrast)
-      )(this.createImageData());
+        img => this.filterBrightness(img, brightness),
+        img => this.filterContrast(img, contrast)
+      )(this.getImageData());
 
       this.context.putImageData(imgData, 0, 0);
-    },
-    uploadFile() {
-      this.$refs.fileSelector.click();
     }
   },
   watch: {
     settings: {
       deep: true,
-      handler() {
-        this.modifyImg();
+      handler(val) {
+        this.applyFilters(val);
       }
     }
   },
@@ -117,6 +123,11 @@ export default {
   overflow: hidden;
 }
 
+.hide-image {
+  position: absolute;
+  opacity: 0;
+  z-index: -10;
+}
 .control-footer {
   display: flex;
   align-items: center;

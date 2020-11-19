@@ -1,5 +1,5 @@
 <template>
-  <div class="range-slider" :class="[colorClass]">
+  <div class="range-slider" :class="[colorClass, disabledState]">
     <label :for="id">{{ label }}</label>
     <div class="range-slider__container">
       <div class="range-slider__track"></div>
@@ -12,6 +12,7 @@
         :max="max"
         :step="step"
         :value="modelValue"
+        :disabled="disabled"
         @input="$emit('update:modelValue', $event.target.valueAsNumber)"
       />
     </div>
@@ -53,6 +54,10 @@ export default {
     step: {
       type: Number,
       default: 1
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -65,6 +70,9 @@ export default {
     },
     colorClass() {
       return this.color ? `range-slider--${this.color}` : null;
+    },
+    disabledState() {
+      return this.disabled ? "range-slider--disabled" : null;
     }
   }
 };
@@ -179,6 +187,19 @@ $radius-size: $track-h / 2;
 
   &--green {
     @include slider-color($green);
+  }
+  &--disabled {
+    @include slider-color($grey-3);
+
+    input[type="range"] {
+      @include slider-thumb {
+        cursor: not-allowed;
+      }
+    }
+
+    span {
+      color: $grey-3;
+    }
   }
 }
 </style>

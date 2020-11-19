@@ -14,6 +14,7 @@
       label="Brightness"
       text="Slide to adjust image brightness! ☀️"
       color="blue"
+      :disabled="disabledControls"
     />
     <range-slider
       v-model="settings.contrast"
@@ -21,9 +22,10 @@
       label="Contrast"
       text="Slide to adjust image contrast! 🌓"
       color="green"
+      :disabled="disabledControls"
     />
   </div>
-  <canvas-editor :settings="settings" />
+  <canvas-editor :settings="settings" @load="imageLoaded" />
 </template>
 
 <script>
@@ -42,8 +44,14 @@ export default {
   name: "Home",
   data() {
     return {
+      disabledControls: true,
       settings: { brightness: 0, contrast: 0 }
     };
+  },
+  methods: {
+    imageLoaded() {
+      this.disabledControls = false;
+    }
   }
 };
 </script>

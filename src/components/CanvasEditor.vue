@@ -56,6 +56,7 @@ export default {
       this.$refs.canvas.height = img.height;
       this.context.drawImage(img, 0, 0, img.width, img.height);
       this.imageData = this.context.getImageData(0, 0, img.width, img.height);
+      this.$emit("load");
     },
     createImageData() {
       const img = this.$refs.imgSource;
@@ -117,7 +118,7 @@ export default {
   font-weight: 700;
   font-size: 1.25rem;
   text-transform: uppercase;
-  border: 1px solid $grey;
+  border: 1px solid $grey-2;
 }
 
 .hidden {
@@ -135,10 +136,10 @@ export default {
     @extend %control-style;
 
     &:first-of-type {
-      background-color: $lightgrey;
+      background-color: $grey-1;
       border-top-left-radius: 5px;
       border-bottom-left-radius: 5px;
-      color: $darkgrey;
+      color: $grey-4;
     }
 
     &:last-of-type {
@@ -155,7 +156,7 @@ export default {
   display: flex;
   align-items: center;
   border-radius: 5px;
-  background-color: $lightgrey;
+  background-color: $grey-1;
   color: $blue;
 
   img {

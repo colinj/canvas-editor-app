@@ -10,10 +10,8 @@
       <canvas class="canvas" ref="canvas"></canvas>
 
       <div class="control-footer">
-        <div class="filename">
-          <span>Name</span>
-          <span>{{ fileName }}</span>
-        </div>
+        <span>Name</span>
+        <span>{{ fileName }}</span>
         <button class="btn" @click="uploadFile">
           <img src="@/assets/triangle.svg" alt="" srcset="" />
           Upload
@@ -38,7 +36,7 @@ export default {
   },
   data() {
     return {
-      fileName: null,
+      fileName: "\xa0",
       context: null,
       imageData: {}
     };
@@ -114,9 +112,10 @@ export default {
 
 <style lang="scss" scoped>
 %control-style {
-  padding: 1rem 2rem;
+  padding: 1rem;
   font-weight: 700;
   font-size: 1.25rem;
+  line-height: 1.25;
   text-transform: uppercase;
   border: 1px solid $grey-2;
 }
@@ -124,14 +123,18 @@ export default {
 .hidden {
   display: none;
 }
-.control-footer {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1.5rem;
+
+.image-container {
+  border: 1px solid $grey-2;
+  border-radius: 0.75rem;
+  overflow: hidden;
 }
 
-.filename {
+.control-footer {
+  display: flex;
+  align-items: center;
+  padding: 1.5rem;
+
   span {
     @extend %control-style;
 
@@ -143,18 +146,25 @@ export default {
     }
 
     &:last-of-type {
+      flex-grow: 1;
       border-left-width: 0;
       border-top-right-radius: 5px;
       border-bottom-right-radius: 5px;
       color: $green;
+      text-align: left;
+      white-space: nowrap;
+      text-overflow: ellipsis;
+      overflow: hidden;
     }
   }
 }
 
 .btn {
   @extend %control-style;
+  padding: 1rem 2rem;
   display: flex;
   align-items: center;
+  margin-left: 1.5rem;
   border-radius: 5px;
   background-color: $grey-1;
   color: $blue;

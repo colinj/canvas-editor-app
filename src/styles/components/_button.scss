@@ -1,0 +1,28 @@
+.btn {
+  @extend %control-style;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  margin-left: 1.5rem;
+  border-radius: $border-radius;
+  background-color: $grey-1;
+  color: $blue;
+
+  &:hover {
+    background-color: darken($grey-1, 10%);
+  }
+
+  &:focus {
+    outline: none;
+  }
+
+  &:active {
+    background-color: darken($grey-1, 15%);
+  }
+
+  img {
+    width: 1em;
+    height: 1em;
+    margin-right: 0.5em;
+  }
+}

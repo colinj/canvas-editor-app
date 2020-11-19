@@ -58,8 +58,6 @@ export default {
 
 <style lang="scss" scoped>
 .controls {
-  * + * {
-    margin-top: 1.5rem;
-  }
+  @extend %stacked-items;
 }
 </style>

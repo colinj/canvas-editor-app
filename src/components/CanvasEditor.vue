@@ -111,22 +111,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-%control-style {
-  padding: 1rem;
-  font-weight: 700;
-  font-size: 1.25rem;
-  line-height: 1.25;
-  text-transform: uppercase;
-  border: 1px solid $grey-2;
-}
-
-.hidden {
-  display: none;
-}
-
 .image-container {
   border: 1px solid $grey-2;
-  border-radius: 0.75rem;
+  border-radius: $border-radius-lg;
   overflow: hidden;
 }
 
@@ -140,16 +127,16 @@ export default {
 
     &:first-of-type {
       background-color: $grey-1;
-      border-top-left-radius: 5px;
-      border-bottom-left-radius: 5px;
+      border-top-left-radius: $border-radius;
+      border-bottom-left-radius: $border-radius;
       color: $grey-4;
     }
 
     &:last-of-type {
       flex-grow: 1;
       border-left-width: 0;
-      border-top-right-radius: 5px;
-      border-bottom-right-radius: 5px;
+      border-top-right-radius: $border-radius;
+      border-bottom-right-radius: $border-radius;
       color: $green;
       text-align: left;
       white-space: nowrap;
@@ -160,31 +147,6 @@ export default {
 }
 
 .btn {
-  @extend %control-style;
-  padding: 1rem 2rem;
-  display: flex;
-  align-items: center;
   margin-left: 1.5rem;
-  border-radius: 5px;
-  background-color: $grey-1;
-  color: $blue;
-
-  &:hover {
-    background-color: darken($grey-1, 10%);
-  }
-
-  &:focus {
-    outline: none;
-  }
-
-  &:active {
-    background-color: darken($grey-1, 15%);
-  }
-
-  img {
-    width: 1em;
-    height: 1em;
-    margin-right: 0.5em;
-  }
 }
 </style>

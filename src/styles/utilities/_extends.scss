@@ -9,14 +9,6 @@
   }
 }
 
-%inline-layout {
-  @at-root &.Layout-item {
-    margin: .5rem;
-  }
-}
-
-$gutter: 2rem;
-
 %flex-layout {
   display: flex;
   flex-flow: row wrap;
@@ -36,4 +28,13 @@ $gutter: 2rem;
   padding-bottom: $gutter * 1.5;
   margin: 0;
   max-width: 100%;
+}
+
+%control-style {
+  padding: 1rem;
+  font-weight: 700;
+  font-size: 1.25rem;
+  line-height: 1.25;
+  text-transform: uppercase;
+  border: 1px solid $grey-2;
 }

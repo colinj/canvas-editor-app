@@ -126,7 +126,7 @@ $radius-size: $track-h / 2;
   position: relative;
   padding: 1.5rem 3rem;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  border-radius: 5px;
+  border-radius: $border-radius-lg;
 
   &:focus-within {
     box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.2);

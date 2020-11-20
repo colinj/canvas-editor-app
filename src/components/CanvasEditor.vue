@@ -56,9 +56,9 @@ export default {
       this.$refs.fileSelector.click();
     },
     loadImageFile(evt) {
-      console.log(evt.target.files[0]);
       this.fileName = evt.target.files[0].name;
       this.$refs.imgSource.src = URL.createObjectURL(evt.target.files[0]);
+      this.$refs.fileSelector.value = null;
     },
     setupCanvas() {
       const img = this.$refs.imgSource;
@@ -70,8 +70,8 @@ export default {
       this.$emit("loaded");
     },
     getImageData() {
-      const img = this.$refs.imgSource;
-      const imgData = this.context.createImageData(img.width, img.height);
+      const canvas = this.$refs.canvas;
+      const imgData = this.context.createImageData(canvas.width, canvas.height);
       imgData.data.set(this.imageData.data);
       return imgData;
     },

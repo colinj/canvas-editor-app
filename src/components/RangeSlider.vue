@@ -3,7 +3,10 @@
     <label :for="id">{{ label }}</label>
     <div class="range-slider__container">
       <div class="range-slider__track"></div>
-      <div class="range-slider__progress" :style="{ width: percentage }"></div>
+      <div
+        class="range-slider__progress"
+        :style="{ width: `${percentage}%` }"
+      ></div>
       <input
         type="range"
         :name="id"
@@ -15,6 +18,9 @@
         :disabled="disabled"
         @input="$emit('update:modelValue', $event.target.valueAsNumber)"
       />
+      <div class="range-slider__value" :style="{ left: valuePosition }">
+        {{ modelValue }}
+      </div>
     </div>
     <span>{{ text }}</span>
   </div>
@@ -66,7 +72,10 @@ export default {
     },
     percentage() {
       const distance = this.modelValue - this.min;
-      return `${(distance / this.range) * 100}%`;
+      return (distance / this.range) * 100;
+    },
+    valuePosition() {
+      return `calc(${this.percentage * 0.933}% - 1.5px)`;
     },
     colorClass() {
       return this.color ? `range-slider--${this.color}` : null;
@@ -143,6 +152,20 @@ $radius-size: $track-h / 2;
     font-size: 2rem;
   }
 
+  &__value {
+    position: absolute;
+    top: -2.5rem;
+    width: 2.5rem;
+    padding: 1px 0;
+    background-color: $grey-1;
+    border-radius: 4px;
+    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
+    font-size: $font-size-7;
+    text-align: center;
+    opacity: 0;
+    z-index: 1;
+    transition: opacity 0.2s ease-in-out;
+  }
   &__container {
     position: relative;
     display: flex;
@@ -173,6 +196,9 @@ $radius-size: $track-h / 2;
       -webkit-appearance: none;
     }
 
+    &:active + .range-slider__value {
+      opacity: 1;
+    }
     @include slider-thumb {
       height: $thumb-size;
       width: $thumb-size;

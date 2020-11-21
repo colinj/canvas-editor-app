@@ -1,32 +1,35 @@
 <template>
-  <div class="main">
-    <div class="image-container">
+  <div class="canvas-editor">
+    <div class="canvas-editor__canvas">
       <img
-        class="hide-image"
+        class="canvas-editor__hidden-image"
         ref="imgSource"
         :alt="fileName"
         tabindex="-1"
         @load="setupCanvas"
       />
-      <canvas class="canvas" ref="canvas" :title="fileName"></canvas>
-
-      <div class="control-footer">
-        <span>Name</span>
-        <span :title="fileName">{{ fileName }}</span>
-        <app-button @click="openFilePicker">
-          <img src="@/assets/triangle.svg" alt="" srcset="" />
-          Upload
-        </app-button>
+      <div v-if="!imageData" class="canvas-editor__instructions">
+        Please click on the UPLOAD button to display an image file
       </div>
+      <canvas ref="canvas" :title="fileName"></canvas>
     </div>
-    <input
-      type="file"
-      class="hidden"
-      ref="fileSelector"
-      accept="image/png, image/jpeg"
-      @change="loadImageFile"
-    />
+
+    <div class="canvas-editor__footer">
+      <span>Name</span>
+      <span :title="fileName">{{ fileName }}</span>
+      <app-button @click="openFilePicker">
+        <img src="@/assets/triangle.svg" alt="" srcset="" />
+        Upload
+      </app-button>
+    </div>
   </div>
+  <input
+    type="file"
+    class="hidden"
+    ref="fileSelector"
+    accept="image/png, image/jpeg"
+    @change="loadImageFile"
+  />
 </template>
 
 <script>
@@ -49,7 +52,7 @@ export default {
     return {
       fileName: "\xa0",
       context: null,
-      imageData: {}
+      imageData: null
     };
   },
   methods: {
@@ -78,7 +81,7 @@ export default {
     },
     filterBrightness(imgData, brightness) {
       const data = imgData.data;
-      const factor = brightness * 1.28; // 2.55;
+      const factor = brightness * 2; // Originally 2.55 but was reduced to be more granular.
       for (let i = 0; i < data.length; i += 4) {
         data[i] += factor;
         data[i + 1] += factor;
@@ -122,50 +125,67 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-.image-container {
+.canvas-editor {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+  height: 268px;
   border: 1px solid $grey-2;
   border-radius: $border-radius;
   overflow: hidden;
-}
 
-.hide-image {
-  position: absolute;
-  opacity: 0;
-  z-index: -10;
-}
-.control-footer {
-  display: flex;
-  align-items: center;
-  padding: 10px;
-  border-top: 1px solid $grey-2;
+  &__hidden-image {
+    position: absolute;
+    opacity: 0;
+    z-index: -10;
+  }
 
-  > span {
-    @extend %control-style;
+  &__canvas {
+    position: relative;
+    flex: 1;
+    overflow: hidden;
+  }
 
-    &:first-of-type {
-      background-color: $grey-1;
-      border-top-left-radius: $border-radius;
-      border-bottom-left-radius: $border-radius;
-      color: $grey-4;
+  &__instructions {
+    padding: 80px 40px;
+    height: 100%;
+    background-color: $grey-1;
+    color: $grey-4;
+  }
+
+  &__footer {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+
+    > span {
+      @extend %control-style;
+
+      &:first-of-type {
+        background-color: $grey-1;
+        border-top-left-radius: $border-radius;
+        border-bottom-left-radius: $border-radius;
+        color: $grey-4;
+      }
+
+      &:last-of-type {
+        flex-grow: 1;
+        display: block;
+        border-left-width: 0;
+        border-top-right-radius: $border-radius;
+        border-bottom-right-radius: $border-radius;
+        color: $green;
+        line-height: 28px;
+        text-align: left;
+        white-space: nowrap;
+        text-overflow: ellipsis;
+        overflow: hidden;
+      }
     }
 
-    &:last-of-type {
-      display: block;
-      flex-grow: 1;
-      border-left-width: 0;
-      border-top-right-radius: $border-radius;
-      border-bottom-right-radius: $border-radius;
-      color: $green;
-      line-height: 28px;
-      text-align: left;
-      white-space: nowrap;
-      text-overflow: ellipsis;
-      overflow: hidden;
+    button {
+      margin-left: $gutter;
     }
   }
-}
-
-.app-btn {
-  margin-left: 15px;
 }
 </style>

@@ -22,16 +22,18 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-h1 {
-  margin: 0;
-  font-size: 2rem;
-}
-
 .app-header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 70px;
   padding: 1.5rem;
-  // background-color: #7344c0;
   background-color: $purple;
   color: #fff;
-  font-size: 1.5rem;
+  font-size: $font-size-md - 1;
+}
+
+h1 {
+  font-size: $font-size-md;
 }
 </style>

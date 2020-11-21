@@ -26,22 +26,22 @@ export default {
 <style lang="scss" scoped>
 .hero-section {
   position: relative;
-  margin-bottom: 3rem;
+  margin-bottom: 15px;
 }
 
-$avatar-size: 8rem;
+$avatar-size: 62px;
 
 .avatar {
   height: $avatar-size;
   width: $avatar-size;
   background-color: lightgreen;
-  border: 4px solid #fff;
+  border: 2px solid #fff;
   border-radius: 50%;
   overflow: hidden;
 
   &-position {
     position: absolute;
-    bottom: -2rem;
+    bottom: -10px;
     left: calc(50% - #{$avatar-size / 2});
   }
 }

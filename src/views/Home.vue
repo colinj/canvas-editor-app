@@ -13,7 +13,7 @@
       id="brightness"
       label="Brightness"
       text="Slide to adjust image brightness! ☀️"
-      color="blue"
+      color="green"
       :disabled="disabledControls"
     />
     <range-slider
@@ -21,10 +21,10 @@
       id="contrast"
       label="Contrast"
       text="Slide to adjust image contrast! 🌓"
-      color="green"
+      color="blue"
       :disabled="disabledControls"
     />
-    <canvas-editor :settings="settings" @loaded="imageLoaded" />
+    <canvas-editor class="editor" :settings="settings" @loaded="imageLoaded" />
   </div>
 </template>
 
@@ -59,5 +59,10 @@ export default {
 <style lang="scss" scoped>
 .controls {
   @extend %stacked-items;
+  padding: 0 20px;
+}
+
+.editor {
+  margin-top: 30px;
 }
 </style>

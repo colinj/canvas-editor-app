@@ -123,7 +123,7 @@ export default {
 <style lang="scss" scoped>
 .image-container {
   border: 1px solid $grey-2;
-  border-radius: $border-radius-lg;
+  border-radius: $border-radius;
   overflow: hidden;
 }
 
@@ -135,9 +135,10 @@ export default {
 .control-footer {
   display: flex;
   align-items: center;
-  padding: 1.5rem;
+  padding: 10px;
+  border-top: 1px solid $grey-2;
 
-  span {
+  > span {
     @extend %control-style;
 
     &:first-of-type {
@@ -148,11 +149,13 @@ export default {
     }
 
     &:last-of-type {
+      display: block;
       flex-grow: 1;
       border-left-width: 0;
       border-top-right-radius: $border-radius;
       border-bottom-right-radius: $border-radius;
       color: $green;
+      line-height: 28px;
       text-align: left;
       white-space: nowrap;
       text-overflow: ellipsis;
@@ -162,6 +165,6 @@ export default {
 }
 
 .app-btn {
-  margin-left: 1.5rem;
+  margin-left: 15px;
 }
 </style>

@@ -8,19 +8,15 @@ $grey-4: #8392a6;
 
 $text-color: #222;
 
-$font-size-base: 16px !default;
+$font-size-base: 15px !default;
 
-$font-size-1: 2rem !default;
-$font-size-2: 1.75rem !default;
-$font-size-3: 1.5rem !default;
-$font-size-4: 1.25rem !default;
-$font-size-5: 1rem !default;
-$font-size-6: .875rem !default;
-$font-size-7: .75rem !default;
+$font-size-lg: 17.5px;
+$font-size-md: $font-size-base;
+$font-size-sm: 12.5px;
+$font-size-xs: 9px;
 
-$site-width: 40rem;
-$margin-gap: 1.5rem;
-$gutter: 2rem;
+$site-width: 25rem;
+$margin-gap: 8px;
+$gutter: 20px;
 
-$border-radius: .5rem;
-$border-radius-lg: .75rem;
+$border-radius: 5px;

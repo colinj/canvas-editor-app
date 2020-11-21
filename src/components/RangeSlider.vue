@@ -75,7 +75,7 @@ export default {
       return (distance / this.range) * 100;
     },
     valuePosition() {
-      return `calc(${this.percentage * 0.933}% - 1.5px)`;
+      return `calc(${this.percentage * 0.945}% - 3px)`;
     },
     colorClass() {
       return this.color ? `range-slider--${this.color}` : null;
@@ -88,7 +88,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-$thumb-size: 2em;
+$thumb-size: 15px;
 $track-h: $thumb-size / 3;
 $radius-size: $track-h / 2;
 
@@ -133,12 +133,13 @@ $radius-size: $track-h / 2;
 .range-slider {
   @include slider-color($purple);
   position: relative;
-  padding: 1.5rem 3rem;
+  height: 88px;
+  padding: 5px 20px;
   box-shadow: 0 0 10px 0 rgba(0, 0, 0, 0.1);
-  border-radius: $border-radius-lg;
+  border-radius: $border-radius;
 
   &:focus-within {
-    box-shadow: 0 0 10px 6px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 0 10px 2px rgba(0, 0, 0, 0.2);
   }
 
   label {
@@ -148,19 +149,19 @@ $radius-size: $track-h / 2;
     bottom: 0;
     left: 0;
     right: 0;
-    padding-top: 1rem;
-    font-size: 2rem;
+    padding-top: 5px;
+    font-size: $font-size-lg;
   }
 
   &__value {
     position: absolute;
-    top: -2.5rem;
-    width: 2.5rem;
+    top: -25px;
+    width: 25px;
     padding: 1px 0;
     background-color: $grey-1;
-    border-radius: 4px;
-    box-shadow: 0 0 3px 1px rgba(0, 0, 0, 0.2);
-    font-size: $font-size-7;
+    border-radius: 2px;
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.3);
+    font-size: $font-size-xs;
     text-align: center;
     opacity: 0;
     z-index: 1;
@@ -170,7 +171,7 @@ $radius-size: $track-h / 2;
     position: relative;
     display: flex;
     align-items: center;
-    margin-top: 4rem;
+    margin-top: 40px;
     height: $track-h;
     border-radius: $radius-size;
   }
@@ -203,7 +204,7 @@ $radius-size: $track-h / 2;
       height: $thumb-size;
       width: $thumb-size;
       border-radius: 50%;
-      box-shadow: 0 0 0 5px #fff;
+      box-shadow: 0 0 0 3px #fff;
       cursor: ew-resize;
 
       &:active {
@@ -219,8 +220,8 @@ $radius-size: $track-h / 2;
 
   span {
     display: block;
-    margin-top: 1.5rem;
-    font-size: 1.5rem;
+    margin-top: 15px;
+    font-size: $font-size-sm;
   }
 
   &--blue {

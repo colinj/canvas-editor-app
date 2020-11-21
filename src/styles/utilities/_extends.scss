@@ -31,9 +31,13 @@
 }
 
 %control-style {
-  padding: 1rem;
-  font-weight: 700;
-  font-size: 1.25rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 30px;
+  padding: 0 0.5rem;
+  font-weight: 500;
+  font-size: $font-size-sm;
   line-height: 1.25;
   text-transform: uppercase;
   border: 1px solid $grey-2;

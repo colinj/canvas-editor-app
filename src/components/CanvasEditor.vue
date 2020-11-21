@@ -23,6 +23,7 @@
       type="file"
       class="hidden"
       ref="fileSelector"
+      accept="image/png, image/jpeg"
       @change="loadImageFile"
     />
   </div>

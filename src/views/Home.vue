@@ -45,12 +45,16 @@ export default {
   data() {
     return {
       disabledControls: true,
-      settings: { brightness: 0, contrast: 0 }
+      settings: this.initSettings()
     };
   },
   methods: {
+    initSettings() {
+      return { brightness: 0, contrast: 0 };
+    },
     imageLoaded() {
       this.disabledControls = false;
+      this.settings = this.initSettings();
     }
   }
 };

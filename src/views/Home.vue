@@ -5,7 +5,8 @@
   />
   <hero-section
     :hero-image="require('@/assets/hero.png')"
-    :avatar-image="require('@/assets/profile.png')"
+    :profile-pic="require('@/assets/profile.png')"
+    profile-name="Colin Johnsun"
   />
   <div class="controls">
     <range-slider
@@ -63,10 +64,6 @@ export default {
 <style lang="scss" scoped>
 .controls {
   @extend %stacked-items;
-  padding: 0 20px;
-}
-
-.editor {
-  margin-top: 30px;
+  padding: 0 $gutter;
 }
 </style>

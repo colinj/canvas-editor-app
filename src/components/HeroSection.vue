@@ -2,7 +2,7 @@
   <div class="hero-section">
     <img :src="heroImage" alt="Hero" />
     <div class="avatar avatar-position">
-      <img :src="avatarImage" alt="profile pic" />
+      <img :src="profilePic" :alt="profileName" :title="profileName" />
     </div>
   </div>
 </template>
@@ -15,9 +15,13 @@ export default {
       type: String,
       required: true
     },
-    avatarImage: {
+    profilePic: {
       type: String,
       default: null
+    },
+    profileName: {
+      type: String,
+      default: "profile picture"
     }
   }
 };

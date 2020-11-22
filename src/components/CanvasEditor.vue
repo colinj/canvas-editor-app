@@ -8,7 +8,10 @@
         tabindex="-1"
         @load="setupCanvas"
       />
-      <div v-if="!isImageLoaded" class="canvas-editor__instructions">
+      <div
+        class="canvas-editor__instructions"
+        :class="{ 'hide-instructions': isImageLoaded }"
+      >
         Please click on the UPLOAD button to display an image file
       </div>
       <canvas ref="canvas" :title="fileName"></canvas>
@@ -91,8 +94,8 @@ export default {
   flex-direction: column;
   margin-top: 30px;
   height: 268px;
-  border: 1px solid $grey-2;
   border-radius: $border-radius;
+  -webkit-mask-image: -webkit-radial-gradient(white, black);
   overflow: hidden;
 
   &__hidden-image {
@@ -108,16 +111,34 @@ export default {
   }
 
   &__instructions {
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
     padding: 80px 40px;
-    height: 100%;
     background-color: $grey-1;
     color: $grey-4;
+    border-top-left-radius: $border-radius;
+    border-top-right-radius: $border-radius;
+    border: 1px solid $grey-2;
+    border-bottom: 0;
+    z-index: -1;
+
+    &.hide-instructions {
+      background-color: #fff;
+      color: #fff;
+    }
   }
 
   &__footer {
     display: flex;
     align-items: center;
     padding: 10px;
+    border: 1px solid $grey-2;
+    border-top: 0;
+    border-bottom-left-radius: $border-radius;
+    border-bottom-right-radius: $border-radius;
 
     > span {
       @extend %control-style;

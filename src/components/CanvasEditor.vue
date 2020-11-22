@@ -73,10 +73,10 @@ export default {
     filterOptions: {
       deep: true,
       handler(val) {
-        this.isLoaded && this.canvasFilter.applyFilters(val);
+        this.isImageLoaded && this.canvasFilter.applyFilters(val);
       }
     },
-    isLoaded(val) {
+    isImageLoaded(val) {
       this.$emit("loaded", val);
     }
   },

@@ -1,6 +1,7 @@
 {
   "name": "canvas-editor-app",
   "version": "0.1.0",
+  "author": "Colin Johnsun",
   "private": true,
   "scripts": {
     "serve": "vue-cli-service serve",

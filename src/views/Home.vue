@@ -10,7 +10,7 @@
   />
   <div class="controls">
     <range-slider
-      v-model="settings.brightness"
+      v-model="options.brightness"
       id="brightness"
       label="Brightness"
       text="Slide to adjust image brightness! ☀️"
@@ -18,14 +18,14 @@
       :disabled="disabledControls"
     />
     <range-slider
-      v-model="settings.contrast"
+      v-model="options.contrast"
       id="contrast"
       label="Contrast"
       text="Slide to adjust image contrast! 🌓"
       color="blue"
       :disabled="disabledControls"
     />
-    <canvas-editor class="editor" :settings="settings" @loaded="imageLoaded" />
+    <canvas-editor :filter-options="options" @loaded="imageLoaded" />
   </div>
 </template>
 
@@ -46,16 +46,16 @@ export default {
   data() {
     return {
       disabledControls: true,
-      settings: this.initSettings()
+      options: this.initaliseOptions()
     };
   },
   methods: {
-    initSettings() {
+    initaliseOptions() {
       return { brightness: 0, contrast: 0 };
     },
-    imageLoaded() {
-      this.disabledControls = false;
-      this.settings = this.initSettings();
+    imageLoaded(val) {
+      this.disabledControls = !val;
+      this.options = this.initaliseOptions();
     }
   }
 };

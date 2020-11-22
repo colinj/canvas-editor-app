@@ -3,12 +3,12 @@
     <div class="canvas-editor__canvas">
       <img
         class="canvas-editor__hidden-image"
-        ref="imgSource"
+        ref="image"
         :alt="fileName"
         tabindex="-1"
         @load="setupCanvas"
       />
-      <div v-if="!imageData" class="canvas-editor__instructions">
+      <div v-if="!isImageLoaded" class="canvas-editor__instructions">
         Please click on the UPLOAD button to display an image file
       </div>
       <canvas ref="canvas" :title="fileName"></canvas>
@@ -33,9 +33,8 @@
 </template>
 
 <script>
+import { useCanvas } from "@/utils/canvas-filters";
 import AppButton from "@/components/AppButton";
-
-const pipe = (...fns) => initVal => fns.reduce((val, fn) => fn(val), initVal);
 
 export default {
   components: {
@@ -43,16 +42,17 @@ export default {
   },
   name: "CanvasEditor",
   props: {
-    settings: {
+    filterOptions: {
       type: Object,
       default: () => ({ brightness: 0, contrast: 0 })
     }
   },
+  emits: ["loaded"],
   data() {
     return {
       fileName: "\xa0",
-      context: null,
-      imageData: null
+      canvasFilter: null,
+      isImageLoaded: false
     };
   },
   methods: {
@@ -61,65 +61,28 @@ export default {
     },
     loadImageFile(evt) {
       this.fileName = evt.target.files[0].name;
-      this.$refs.imgSource.src = URL.createObjectURL(evt.target.files[0]);
+      this.$refs.image.src = URL.createObjectURL(evt.target.files[0]);
       this.$refs.fileSelector.value = null;
     },
     setupCanvas() {
-      const img = this.$refs.imgSource;
-      URL.revokeObjectURL(img.src);
-      this.$refs.canvas.width = img.width;
-      this.$refs.canvas.height = img.height;
-      this.context.drawImage(img, 0, 0, img.width, img.height);
-      this.imageData = this.context.getImageData(0, 0, img.width, img.height);
-      this.$emit("loaded");
-    },
-    getImageData() {
-      const canvas = this.$refs.canvas;
-      const imgData = this.context.createImageData(canvas.width, canvas.height);
-      imgData.data.set(this.imageData.data);
-      return imgData;
-    },
-    filterBrightness(imgData, brightness) {
-      const data = imgData.data;
-      const factor = brightness * 2; // Originally 2.55 but was reduced to be more granular.
-      for (let i = 0; i < data.length; i += 4) {
-        data[i] += factor;
-        data[i + 1] += factor;
-        data[i + 2] += factor;
-      }
-      return imgData;
-    },
-    filterContrast(imgData, contrast) {
-      const data = imgData.data;
-      const factor =
-        (259.0 * (contrast + 255.0)) / (255.0 * (259.0 - contrast));
-
-      for (var i = 0; i < data.length; i += 4) {
-        data[i] = factor * (data[i] - 128.0) + 128.0;
-        data[i + 1] = factor * (data[i + 1] - 128.0) + 128.0;
-        data[i + 2] = factor * (data[i + 2] - 128.0) + 128.0;
-      }
-      return imgData;
-    },
-    applyFilters({ brightness, contrast }) {
-      const imgData = pipe(
-        img => this.filterBrightness(img, brightness),
-        img => this.filterContrast(img, contrast)
-      )(this.getImageData());
-
-      this.context.putImageData(imgData, 0, 0);
+      this.canvasFilter.useImage(this.$refs.image);
+      this.isImageLoaded = true;
     }
   },
   watch: {
-    settings: {
+    filterOptions: {
       deep: true,
       handler(val) {
-        this.applyFilters(val);
+        this.isLoaded && this.canvasFilter.applyFilters(val);
       }
+    },
+    isLoaded(val) {
+      this.$emit("loaded", val);
     }
   },
   mounted() {
-    this.context = this.$refs.canvas.getContext("2d");
+    this.canvasFilter = useCanvas(this.$refs.canvas);
+    this.$emit("loaded", false);
   }
 };
 </script>

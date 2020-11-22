@@ -67,6 +67,7 @@ export default {
     setupCanvas() {
       this.canvasFilter.useImage(this.$refs.image);
       this.isImageLoaded = true;
+      this.$emit("loaded", true);
     }
   },
   watch: {
@@ -75,9 +76,6 @@ export default {
       handler(val) {
         this.isImageLoaded && this.canvasFilter.applyFilters(val);
       }
-    },
-    isImageLoaded(val) {
-      this.$emit("loaded", val);
     }
   },
   mounted() {

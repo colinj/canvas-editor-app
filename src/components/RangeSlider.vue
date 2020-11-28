@@ -27,6 +27,8 @@
 </template>
 
 <script>
+import { computed } from "vue";
+
 export default {
   name: "RangeSlider",
   props: {
@@ -66,23 +68,26 @@ export default {
       default: false
     }
   },
-  computed: {
-    range() {
-      return this.max - this.min;
-    },
-    percentage() {
-      const distance = this.modelValue - this.min;
-      return (distance / this.range) * 100;
-    },
-    valuePosition() {
-      return `calc(${this.percentage * 0.945}% - 3px)`;
-    },
-    colorClass() {
-      return this.color ? `range-slider--${this.color}` : null;
-    },
-    disabledState() {
-      return this.disabled ? "range-slider--disabled" : null;
-    }
+  setup(props) {
+    const percentage = computed(
+      () => ((props.modelValue - props.min) / (props.max - props.min)) * 100
+    );
+    const valuePosition = computed(
+      () => `calc(${percentage.value * 0.945}% - 3px)`
+    );
+    const colorClass = computed(() =>
+      props.color ? `range-slider--${props.color}` : null
+    );
+    const disabledState = computed(() =>
+      props.disabled ? "range-slider--disabled" : null
+    );
+
+    return {
+      percentage,
+      valuePosition,
+      colorClass,
+      disabledState
+    };
   }
 };
 </script>
@@ -200,6 +205,7 @@ $radius-size: $track-h / 2;
     &:active + .range-slider__value {
       opacity: 1;
     }
+
     @include slider-thumb {
       height: $thumb-size;
       width: $thumb-size;

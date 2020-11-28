@@ -34,7 +34,7 @@ export const useCanvas = canvas => {
   let imageData;
 
   return {
-    useImage(img) {
+    copyImage(img) {
       const { src, width, height } = img;
       URL.revokeObjectURL(src);
       canvas.width = width;

@@ -38,6 +38,7 @@
 <script>
 import { useCanvas } from "@/utils/canvas-filters";
 import AppButton from "@/components/AppButton";
+import { onMounted, ref, watch } from "vue";
 
 export default {
   components: {
@@ -51,39 +52,49 @@ export default {
     }
   },
   emits: ["loaded"],
-  data() {
-    return {
-      fileName: "\xa0",
-      canvasFilter: null,
-      isImageLoaded: false
+  setup(props, { emit }) {
+    let canvasFilter;
+
+    const fileSelector = ref(null);
+    const image = ref(null);
+    const canvas = ref(null);
+    const fileName = ref("\xa0");
+    const isImageLoaded = ref(false);
+
+    const openFilePicker = () => fileSelector.value.click();
+
+    const loadImageFile = evt => {
+      fileName.value = evt.target.files[0].name;
+      image.value.src = URL.createObjectURL(evt.target.files[0]);
+      fileSelector.value.value = null;
     };
-  },
-  methods: {
-    openFilePicker() {
-      this.$refs.fileSelector.click();
-    },
-    loadImageFile(evt) {
-      this.fileName = evt.target.files[0].name;
-      this.$refs.image.src = URL.createObjectURL(evt.target.files[0]);
-      this.$refs.fileSelector.value = null;
-    },
-    setupCanvas() {
-      this.canvasFilter.useImage(this.$refs.image);
-      this.isImageLoaded = true;
-      this.$emit("loaded", true);
-    }
-  },
-  watch: {
-    filterOptions: {
-      deep: true,
-      handler(val) {
-        this.isImageLoaded && this.canvasFilter.applyFilters(val);
-      }
-    }
-  },
-  mounted() {
-    this.canvasFilter = useCanvas(this.$refs.canvas);
-    this.$emit("loaded", false);
+
+    const setupCanvas = () => {
+      canvasFilter.useImage(image.value);
+      isImageLoaded.value = true;
+      emit("loaded", true);
+    };
+
+    watch(
+      () => props.filterOptions,
+      val => isImageLoaded.value && canvasFilter.applyFilters(val),
+      { deep: true }
+    );
+
+    onMounted(() => {
+      canvasFilter = useCanvas(canvas.value);
+      emit("loaded", false);
+    });
+    return {
+      fileSelector,
+      image,
+      canvas,
+      fileName,
+      isImageLoaded,
+      openFilePicker,
+      loadImageFile,
+      setupCanvas
+    };
   }
 };
 </script>
@@ -95,7 +106,7 @@ export default {
   margin-top: 30px;
   height: 268px;
   border-radius: $border-radius;
-  -webkit-mask-image: -webkit-radial-gradient(white, black);
+  mask-image: -webkit-radial-gradient(white, black);
   overflow: hidden;
 
   &__hidden-image {

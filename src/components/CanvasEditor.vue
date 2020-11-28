@@ -10,7 +10,7 @@
       />
       <div
         class="canvas-editor__instructions"
-        :class="{ 'hide-instructions': isImageLoaded }"
+        :class="{ 'hide-instructions': isCanvasReady }"
       >
         Please click on the UPLOAD button to display an image file
       </div>
@@ -21,7 +21,7 @@
       <span>Name</span>
       <span :title="fileName">{{ fileName }}</span>
       <app-button @click="openFilePicker">
-        <img src="@/assets/triangle.svg" alt="" srcset="" />
+        <img src="@/assets/triangle.svg" />
         Upload
       </app-button>
     </div>
@@ -36,9 +36,29 @@
 </template>
 
 <script>
+import { onMounted, ref, watch } from "vue";
 import { useCanvas } from "@/utils/canvas-filters";
 import AppButton from "@/components/AppButton";
-import { onMounted, ref, watch } from "vue";
+
+const useFilePicker = image => {
+  const fileSelector = ref(null);
+  const fileName = ref("\xa0");
+
+  const openFilePicker = () => fileSelector.value.click();
+
+  const loadImageFile = evt => {
+    fileName.value = evt.target.files[0].name;
+    image.value.src = URL.createObjectURL(evt.target.files[0]);
+    fileSelector.value.value = null;
+  };
+
+  return {
+    fileSelector,
+    fileName,
+    openFilePicker,
+    loadImageFile
+  };
+};
 
 export default {
   components: {
@@ -55,29 +75,19 @@ export default {
   setup(props, { emit }) {
     let canvasFilter;
 
-    const fileSelector = ref(null);
     const image = ref(null);
     const canvas = ref(null);
-    const fileName = ref("\xa0");
-    const isImageLoaded = ref(false);
-
-    const openFilePicker = () => fileSelector.value.click();
-
-    const loadImageFile = evt => {
-      fileName.value = evt.target.files[0].name;
-      image.value.src = URL.createObjectURL(evt.target.files[0]);
-      fileSelector.value.value = null;
-    };
+    const isCanvasReady = ref(false);
 
     const setupCanvas = () => {
-      canvasFilter.useImage(image.value);
-      isImageLoaded.value = true;
+      canvasFilter.copyImage(image.value);
+      isCanvasReady.value = true;
       emit("loaded", true);
     };
 
     watch(
       () => props.filterOptions,
-      val => isImageLoaded.value && canvasFilter.applyFilters(val),
+      options => isCanvasReady.value && canvasFilter.applyFilters(options),
       { deep: true }
     );
 
@@ -85,14 +95,12 @@ export default {
       canvasFilter = useCanvas(canvas.value);
       emit("loaded", false);
     });
+
     return {
-      fileSelector,
       image,
       canvas,
-      fileName,
-      isImageLoaded,
-      openFilePicker,
-      loadImageFile,
+      isCanvasReady,
+      ...useFilePicker(image),
       setupCanvas
     };
   }

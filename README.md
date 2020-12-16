@@ -6,7 +6,8 @@ The image is loaded and resized to fit the width of the image viewport while kee
 
 Once the image is loaded, the brightness and contrast controls will be activated and will allow the user to manipulate the image as they move the controls.
 
-A live demonstration of this application can be found on [this link](https://affectionate-swanson-381a34.netlify.app/)
+A live demonstration of this application can be found on 
+<a href="https://affectionate-swanson-381a34.netlify.app/" target="_blank">this link</a>
 
 ## Assumptions and Design Decisions
 

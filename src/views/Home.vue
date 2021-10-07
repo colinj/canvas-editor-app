@@ -4,8 +4,8 @@
     sub-title="01 Jun, 2018 – 31 Dec, 2020"
   />
   <hero-section
-    :hero-image="require('@/assets/hero.png')"
-    :profile-pic="require('@/assets/profile.png')"
+    :hero-image="heroImage"
+    :profile-pic="profilePic"
     profile-name="Colin Johnsun"
   />
   <div class="controls">
@@ -30,10 +30,12 @@
 </template>
 
 <script>
-import AppHeader from "@/components/AppHeader";
-import HeroSection from "@/components/HeroSection";
-import RangeSlider from "@/components/RangeSlider";
-import CanvasEditor from "@/components/CanvasEditor";
+import AppHeader from "@/components/AppHeader.vue";
+import HeroSection from "@/components/HeroSection.vue";
+import RangeSlider from "@/components/RangeSlider.vue";
+import CanvasEditor from "@/components/CanvasEditor.vue";
+import heroImage from "@/assets/hero.png";
+import profilePic from "@/assets/profile.png";
 
 export default {
   components: {
@@ -45,6 +47,8 @@ export default {
   name: "Home",
   data() {
     return {
+      heroImage: heroImage,
+      profilePic: profilePic,
       disabledControls: true,
       options: this.initaliseOptions()
     };

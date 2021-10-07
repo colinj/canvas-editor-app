@@ -38,7 +38,7 @@
 <script>
 import { onMounted, ref, watch } from "vue";
 import { useCanvas } from "@/utils/canvas-filters";
-import AppButton from "@/components/AppButton";
+import AppButton from "@/components/AppButton.vue";
 
 const useFilePicker = image => {
   const fileSelector = ref(null);

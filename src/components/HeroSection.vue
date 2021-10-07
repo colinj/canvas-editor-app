@@ -46,7 +46,7 @@ $avatar-size: 62px;
   &-position {
     position: absolute;
     bottom: -10px;
-    left: calc(50% - #{$avatar-size / 2});
+    left: calc(50% - #{math.div($avatar-size, 2)});
   }
 }
 </style>

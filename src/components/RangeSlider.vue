@@ -94,8 +94,8 @@ export default {
 
 <style lang="scss" scoped>
 $thumb-size: 15px;
-$track-h: $thumb-size / 3;
-$radius-size: $track-h / 2;
+$track-h: math.div($thumb-size, 3);
+$radius-size: math.div($track-h, 2);
 
 @mixin slider-thumb {
   &::-webkit-slider-thumb {
